@@ -360,8 +360,14 @@ filtering ::
   (a -> f Bool)
   -> List a
   -> f (List a)
-filtering =
-  error "todo: Course.Applicative#filtering"
+filtering boolFunc =
+  foldRight
+    (\a ->
+      lift2
+        (\x -> if x then (a:.) else id)
+        (boolFunc a))
+    (pure Nil)
+  --error "todo: Course.Applicative#filtering"
 
 -----------------------
 -- SUPPORT LIBRARIES --
