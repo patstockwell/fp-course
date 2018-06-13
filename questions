@@ -1,0 +1,22 @@
+1. How does the 'reader' work?
+((->) t)
+
+2. In the following example from Monad, what is the order of operations? And why can the argument be used twice?
+-- ((*) =<< (+10)) 7
+-- 119
+
+(10 + 7) * 7
+OR
+7 * (10 + 7)
+Does it even matter?
+
+3. Why does the type declaration use two kinds of arrows? eg (t -> a) and ((->) t a).
+Is there a difference?
+
+instance Monad ((->) t) where
+  (=<<) ::
+    (a -> ((->) t b))
+    -> ((->) t a)
+    -> ((->) t b)
+  (=<<) =
+    error "todo: Course.Monad#(<**>)"
