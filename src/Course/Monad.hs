@@ -68,12 +68,9 @@ instance Monad Optional where
 instance Monad ((->) t) where
   (=<<) ::
     (a -> ((->) t b))
-    -- (a -> (t -> b))
     -> ((->) t a)
     -> ((->) t b)
-  -- (=<<) f g = f . g
-  (=<<) =
-    error "todo: Course.Monad#(<**>)"
+  (=<<) f g = \x -> f (g x) x
 
 -- | Witness that all things with (=<<) and (<$>) also have (<*>).
 --
@@ -111,8 +108,7 @@ instance Monad ((->) t) where
   f (a -> b)
   -> f a
   -> f b
-(<**>) =
-  error "todo: Course.Monad#(<**>)"
+(<**>) mfab ma = (\fab -> ((\x -> pure (fab x)) =<< ma)) =<< mfab
 
 infixl 4 <**>
 
